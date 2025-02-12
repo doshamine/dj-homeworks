@@ -1,3 +1,4 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 from rest_framework.viewsets import ModelViewSet
@@ -14,12 +15,12 @@ class AdvertisementViewSet(ModelViewSet):
     queryset = Advertisement.objects.all()
     serializer_class = AdvertisementSerializer
     filter_backends = [AdvertisementFilter]
-    filterset_fields = ['date', 'status']
+    filterset_fields = ['created_at', 'status']
 
     def get_permissions(self):
         """Получение прав для действий."""
-        if self.action in ["create", "retrieve", "list"]:
+        if self.action in ["create"]:
             return [IsAuthenticated()]
         elif self.action in ["update", "partial_update", "destroy"]:
-            return [IsOwnerOrReadOnly]
+            return [IsOwnerOrReadOnly()]
         return []
