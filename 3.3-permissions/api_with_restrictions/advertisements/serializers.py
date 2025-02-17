@@ -4,6 +4,8 @@ from rest_framework.exceptions import ValidationError
 
 from advertisements.models import Advertisement, AdvertisementStatusChoices
 
+from pprint import pprint
+
 
 class UserSerializer(serializers.ModelSerializer):
     """Serializer для пользователя."""
@@ -34,8 +36,9 @@ class AdvertisementSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         """Метод для валидации. Вызывается при создании и обновлении."""
+        user = self.context['request'].user
 
-        if len(Advertisement.objects.filter(status='OPEN')) > 10:
+        if not data.get('status') == 'CLOSED' and Advertisement.objects.filter(status='OPEN', creator=user).count() >= 10:
             raise ValidationError('Разрешается создавать не более 10 открытых объявлений')
 
         return data
