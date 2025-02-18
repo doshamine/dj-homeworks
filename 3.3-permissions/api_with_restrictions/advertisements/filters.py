@@ -8,9 +8,13 @@ class AdvertisementFilter(filters.FilterSet):
     created_at = DateFromToRangeFilter(field_name='created_at')
     status = ChoiceFilter(
         field_name='status',
-        choices=(AdvertisementStatusChoices.OPEN, AdvertisementStatusChoices.CLOSED)
+        choices=(
+            AdvertisementStatusChoices.OPEN,
+            AdvertisementStatusChoices.CLOSED,
+            AdvertisementStatusChoices.DRAFT
+        )
     )
 
     class Meta:
         model = Advertisement
-        fields = ['created_at', 'status']
+        fields = ['created_at', 'status', 'creator']
