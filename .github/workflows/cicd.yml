@@ -44,7 +44,7 @@ jobs:
                         run: flake8 3.2-crud/stocks_products --exclude migrations --ignore E501,F401,E302,W293,W391,W292
 
                       - name: Тесты
-                        run: python3 stocks_products/manage.py test
+                        run: python3 3.2-crud/stocks_products/manage.py test
                         env:
                                 PG_NAME: ${{ env.PG_NAME }}
                                 PG_USER: ${{ env.PG_USER }}
