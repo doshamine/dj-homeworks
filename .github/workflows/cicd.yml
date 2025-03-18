@@ -54,13 +54,17 @@ jobs:
 
         deploy:
                 runs-on: ubuntu-latest
+                env:
+                        host: ${{ secrets.host }}
+                        username: ${{ secrets.username }}
+                        password: ${{ secrets.password }}
+
                 needs: testing
                 steps:
                       - name: deploy
                         uses: appleboy/ssh-action@master
                         with:
                                 host: ${{ env.host }}
-                                port: ${{ env.port }}
                                 username: ${{ env.username }}
                                 password: ${{ env.password }}
                                 script: |
