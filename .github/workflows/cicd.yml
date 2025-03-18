@@ -60,6 +60,7 @@ jobs:
                         uses: appleboy/ssh-action@master
                         with:
                                 host: ${{ env.host }}
+                                port: ${{ env.port }}
                                 username: ${{ env.username }}
                                 password: ${{ env.password }}
                                 script: |
